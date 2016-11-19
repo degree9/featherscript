@@ -2,8 +2,6 @@
   (:require [cljs.nodejs :as node]
             [feathers.core :as fs]))
 
-(def rest (node/require "feathers-rest"))
-
 (def service fs/service)
 
 (defn find [service params & [callback]]
