@@ -1,4 +1,5 @@
 (ns feathers.rest
+  (:refer-clojure :exclude [rest])
   (:require [cljs.nodejs :as node]
             [feathers.core :as fs]))
 

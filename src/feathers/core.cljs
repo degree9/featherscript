@@ -3,6 +3,9 @@
 
 (def feathers (node/require "feathers"))
 
+(defn static [path]
+  (.static feathers path))
+
 (defn configure
   [app callback]
   (.configure app callback))

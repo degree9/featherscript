@@ -7,18 +7,18 @@
  :resource-paths #{"src"})
 
 (require
- '[hoplon.boot-hoplon :refer :all]
+ '[adzerk.bootlaces    :refer :all]
  '[degree9.boot-semver :refer :all]
  '[degree9.boot-semgit :refer :all]
  '[degree9.boot-semgit.workflow :refer :all]
  '[tolitius.boot-check :as check])
 
 (task-options!
- pom    {:project 'hoplon/brew
+ pom    {:project 'degree9/featherscript
          :version (get-version)
-         :description "Experimental Hoplon Components."
-         :url         "http://github.com/hoplon/brew"
-         :scm {:url "http://github.com/hoplon/brew"}})
+         :description "Feathersjs wrapper for ClojureScript."
+         :url         "http://github.com/degree9/featherscript"
+         :scm {:url "http://github.com/degree9/featherscript"}})
 
 (deftask ci-deps
   "Force CI to fetch dependencies."
@@ -40,7 +40,6 @@
   []
   (comp
     (version :minor 'inc :patch 'zero)
-    (hoplon  :manifest true)
     (build-jar)
     (push-release)))
 
@@ -53,5 +52,4 @@
              :minor 'inc
              :patch 'zero
              :pre-release 'snapshot)
-    (hoplon :manifest true)
     (build-jar)))
