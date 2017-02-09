@@ -4,6 +4,9 @@
 
 (def service fs/service)
 
+(defn on [service callback]
+  (.on service callback))
+
 (defn find [service params & [callback]]
   (.find service params callback))
 
