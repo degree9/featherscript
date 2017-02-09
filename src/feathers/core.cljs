@@ -1,6 +1,8 @@
 (ns feathers.core
   (:require [cljs.nodejs :as node]))
 
+(enable-console-print!)
+
 (def feathers (node/require "feathers"))
 
 (defn static [path]
@@ -18,7 +20,8 @@
   [app server]
   (.setup app server))
 
-(defn use
+;;Note: renamed use -> using - to avoid cljs macro conflict
+(defn using
   ([app service]
     (.use app service))
   ([app path service]

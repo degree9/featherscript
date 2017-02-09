@@ -4,5 +4,5 @@
 
 (def favicon (node/require "serve-favicon"))
 
-(defn use [app path]
-  (fs/use app (favicon path)))
+(defn using [app path]
+  (fs/using app (favicon path)))

@@ -5,7 +5,7 @@
 (def body-parser (node/require "body-parser"))
 
 (defn json [app]
-  (fs/use app (.json body-parser)))
+  (fs/using app (.json body-parser)))
 
 (defn urlencoded [app conf]
-  (fs/use app (.urlencoded body-parser conf)))
+  (fs/using app (.urlencoded body-parser conf)))
