@@ -1,2 +1,2 @@
 # FeatherScript
-A Stack for Electron/ClojureScript Apps
+ClojureScript layer around Feathers.js.
