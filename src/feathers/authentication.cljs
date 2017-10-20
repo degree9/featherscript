@@ -4,11 +4,12 @@
             [cljs.nodejs :as node]
             [feathers.core :as fs]))
 
-(def auth (node/require "feathers-authentication"))
-(def jwt  (node/require "feathers-authentication-jwt"))
+(def auth   (node/require "feathers-authentication"))
+(def jwt    (node/require "feathers-authentication-jwt"))
 (def local  (node/require "feathers-authentication-local"))
-(def oauth1  (node/require "feathers-authentication-oauth1"))
-(def oauth2  (node/require "feathers-authentication-oauth2"))
+(def oauth1 (node/require "feathers-authentication-oauth1"))
+(def oauth2 (node/require "feathers-authentication-oauth2"))
+(def mgmt   (node/require "feathers-authentication-management"))
 
 (def hooks
   (merge
@@ -16,6 +17,9 @@
       (obj/get "hooks")
       (js->clj :keywordize-keys true))
     (-> local
+      (obj/get "hooks")
+      (js->clj :keywordize-keys true))
+    (-> mgmt
       (obj/get "hooks")
       (js->clj :keywordize-keys true))))
 
@@ -25,8 +29,11 @@
     (fs/configure (jwt))
     (fs/configure (local))))
 
-(defn service [app]
-  (let [svc (fs/service app "authentication")
+(defn configure-mgmt [app conf]
+  (fs/configure app (mgmt conf)))
+
+(defn service [app path]
+  (let [svc (fs/service app path)
         auth (:authenticate hooks)]
     (doto svc
       (.before #js{:create (auth. ["jwt" "local"])}))

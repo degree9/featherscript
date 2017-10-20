@@ -1,6 +1,7 @@
 (ns feathers.app
   (:refer-clojure :exclude [rest])
-  (:require [feathers.authentication :as auth]
+  (:require [goog.object :as obj]
+            [feathers.authentication :as auth]
             [feathers.core :as fs]
             [feathers.cors :as cors]
             [feathers.configuration :as config]
@@ -11,7 +12,9 @@
             [feathers.rest :as rest]
             [feathers.socketio :as socketio]
             [feathers.express :as express]
-            [feathers.memory :as memory]))
+            [feathers.memory :as memory]
+            [feathers.mailgun :as mailgun])
+  (:require-macros feathers.app))
 
 (defn feathers [] (fs/feathers))
 
@@ -39,20 +42,27 @@
 
 (def memory memory/using)
 
+(def mailgun mailgun/using)
+
 (defn authentication [app]
   (let [conf (.get app "auth")
+        path (obj/get conf "path")
         app (auth/configure app conf)]
-    (auth/service app)))
+    (auth/service app path)))
+
+(def authentication-management auth/configure-mgmt)
 
 (defn static [feathers path]
   (fs/using feathers (fs/static path)))
 
 (def listen fs/listen)
 
-(defn api [app path svc & [hooks]]
+(def using fs/using)
+
+(defn api [app path svc & [opts]]
   (let [app (fs/using app path svc)
-        {:keys [before after]} hooks]
+        {:keys [before after error filter]} opts]
     (doto (fs/service app path)
-      (.before (clj->js before))
-      (.after (clj->js after)))
+      (.hooks (clj->js {:before before :after after :error error}))
+      (.filter (clj->js filter)))
     app))
