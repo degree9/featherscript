@@ -31,9 +31,9 @@
 
 (defn create
   ([app data]
-    (.create app data))
-  ([app data & [params callback]]
-    (.create app data params callback)))
+    (.create app (clj->js data)))
+  ([app data params]
+    (.create app (clj->js data) (clj->js data))))
 
 (defn update [app id data & [params callback]]
   (.update app id data params callback))
