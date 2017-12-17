@@ -3,10 +3,7 @@
 
 (enable-console-print!)
 
-(def feathers (node/require "feathers"))
-
-(defn static [path]
-  (.static feathers path))
+(def feathers (node/require "@feathersjs/feathers"))
 
 (defn configure
   [app callback]
@@ -23,12 +20,12 @@
 ;;Note: renamed use -> using - to avoid cljs macro conflict
 (defn using
   ([app service]
-    (.use app service))
+   (.use app service))
   ([app path service]
-    (.use app path service)))
+   (.use app path service)))
 
 (defn service
   ([app path]
-    (.service app path))
+   (.service app path))
   ([app path service]
-    (.service app path service)))
+   (.service app path service)))

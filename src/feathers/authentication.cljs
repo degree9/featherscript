@@ -4,12 +4,9 @@
             [cljs.nodejs :as node]
             [feathers.core :as fs]))
 
-(def auth   (node/require "feathers-authentication"))
-(def jwt    (node/require "feathers-authentication-jwt"))
-(def local  (node/require "feathers-authentication-local"))
-(def oauth1 (node/require "feathers-authentication-oauth1"))
-(def oauth2 (node/require "feathers-authentication-oauth2"))
-(def mgmt   (node/require "feathers-authentication-management"))
+(def auth   (node/require "@feathersjs/authentication"))
+(def jwt    (node/require "@feathersjs/authentication-jwt"))
+(def local  (node/require "@feathersjs/authentication-local"))
 
 (def hooks
   (merge
@@ -18,9 +15,6 @@
       (js->clj :keywordize-keys true))
     (-> local
       (obj/get "hooks")
-      (js->clj :keywordize-keys true))
-    (-> mgmt
-      (obj/get "hooks")
       (js->clj :keywordize-keys true))))
 
 (defn configure [app conf]
@@ -28,9 +22,6 @@
     (fs/configure (auth conf))
     (fs/configure (jwt))
     (fs/configure (local))))
-
-(defn configure-mgmt [app conf]
-  (fs/configure app (mgmt conf)))
 
 (defn service [app path]
   (let [svc (fs/service app path)

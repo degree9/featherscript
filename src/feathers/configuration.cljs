@@ -2,7 +2,7 @@
   (:require [cljs.nodejs :as node]
             [feathers.core :as fs]))
 
-(def configuration (node/require "feathers-configuration"))
+(def configuration (node/require "@feathersjs/configuration"))
 
-(defn configure [app path]
-  (fs/configure app (configuration path)))
+(defn configure [app]
+  (fs/configure app (configuration)))

@@ -15,9 +15,6 @@
 (defn socketio [app socket]
   (configure app (.socketio feathers socket)))
 
-(defn hooks [app]
-  (configure app (.hooks feathers)))
-
 (defn authentication [app conf]
   (configure app (.authentication feathers conf)))
 

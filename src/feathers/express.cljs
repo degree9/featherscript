@@ -1,8 +1,17 @@
 (ns feathers.express
-  (:require [cljs.nodejs :as node]))
+  (:require [cljs.nodejs :as node]
+            [feathers.core :as fs]))
 
-(def express (node/require "express"))
+(def express (node/require "@feathersjs/express"))
 
-(defn options
-  ([app opts] (.options app opts))
-  ([app path opts] (.options app path opts)))
+(defn expressify [feathers]
+  (express feathers))
+
+(defn static [app]
+  (fs/using app (.static express (.cwd js/process))))
+
+(defn json [app]
+  (fs/using app (.json express)))
+
+(defn urlencoded [app]
+  (fs/using app (.urlencoded express #js{:extended true})))
