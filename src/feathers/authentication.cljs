@@ -24,8 +24,8 @@
     (fs/configure (local))))
 
 (defn service [app path]
-  (let [svc (fs/service app path)
-        auth (:authenticate hooks)]
-    (doto svc
-      (.before #js{:create (auth. ["jwt" "local"])}))
+  (let [svc   (fs/service app path)
+        auth  (:authenticate hooks)
+        hooks (clj->js {:before {:create [#(.log js/console "auth-hook!") (auth. ["jwt" "local"])]}})]
+    (.hooks svc hooks)
     app))
