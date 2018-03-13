@@ -20,20 +20,23 @@
 (defn removed [app callback]
   (.on app "removed" callback))
 
-(defn find [app & [params callback]]
-  (.find app params callback))
+(defn find
+  ([app]
+   (.find app))
+  ([app & [params]]
+   (.find app (clj->js params))))
 
 (defn get
   ([app id]
-    (.get app id))
+   (.get app id))
   ([app id & [params callback]]
-    (.get app id params callback)))
+   (.get app id params callback)))
 
 (defn create
   ([app data]
-    (.create app (clj->js data)))
+   (.create app (clj->js data)))
   ([app data params]
-    (.create app (clj->js data) (clj->js data))))
+   (.create app (clj->js data) (clj->js data))))
 
 (defn update [app id data & [params callback]]
   (.update app id data params callback))
