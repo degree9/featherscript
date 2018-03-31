@@ -42,6 +42,6 @@
     (.emit service event (clj->js data)))
   (removelistener
     ([service event]
-      (.removelistener service event))
+     (.removelistener service event))
     ([service event callback]
-      (.removelistener service event callback))))
+     (.removelistener service event callback))))
