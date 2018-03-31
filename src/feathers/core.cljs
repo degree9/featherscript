@@ -5,6 +5,10 @@
 
 (def feathers (node/require "@feathersjs/feathers"))
 
+(defn hooks
+  [app hook]
+  (.hooks app hook))
+
 (defn configure
   [app callback]
   (.configure app callback))
