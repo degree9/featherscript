@@ -4,5 +4,5 @@
 
 (def socketio (node/require "@feathersjs/socketio"))
 
-(defn configure [app]
-  (fs/configure app (socketio)))
+(defn configure [app & [callback]]
+  (fs/configure app (socketio callback)))
