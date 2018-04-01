@@ -5,10 +5,6 @@
 
 (def feathers (node/require "@feathersjs/feathers"))
 
-(defn hooks
-  [app hook]
-  (.hooks app hook))
-
 (defn configure
   [app callback]
   (.configure app callback))
@@ -33,3 +29,9 @@
    (.service app path))
   ([app path service]
    (.service app path service)))
+
+(defn hooks
+ ([app hook]
+  (.hooks app (clj->js hook)))
+ ([app path hook]
+  (.hooks (service app path) (clj->js hook))))
