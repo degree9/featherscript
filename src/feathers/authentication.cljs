@@ -2,13 +2,10 @@
   (:refer-clojure :exclude [rest])
   (:require [goog.object :as obj]
             [cljs.nodejs :as node]
-            [feathers.core :as fs]))
-
-;; Feathers Authentication ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(def auth   (node/require "@feathersjs/authentication"))
-(def jwt    (node/require "@feathersjs/authentication-jwt"))
-(def local  (node/require "@feathersjs/authentication-local"))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            [feathers.core :as fs]
+            ["@feathersjs/authentication" :as auth]
+            ["@feathersjs/authentication-jwt" :as jwt]
+            ["@feathersjs/authentication-local" :as local]))
 
 ;; Authentication Hooks ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (def hooks

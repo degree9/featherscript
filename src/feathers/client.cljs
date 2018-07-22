@@ -1,22 +1,20 @@
 (ns feathers.client
   (:refer-clojure :exclude [rest])
-  (:require [cljsjs.feathers]
-            [cljsjs.jquery]))
-
-(def feathers js/feathers)
+  (:require ["@feathersjs/client" :as feathers]
+            ["jquery" :as jquery]))
 
 (defn configure
   [app callback]
   (.configure app callback))
 
 (defn rest [app]
-  (configure app (.jquery (.rest feathers) js/jquery)))
+  (configure app (jquery/jquery (feathers/rest))))
 
 (defn socketio [app socket]
-  (configure app (.socketio feathers socket)))
+  (configure app (feathers/socketio socket)))
 
 (defn authentication [app conf]
-  (configure app (.authentication feathers conf)))
+  (configure app (feathers/authentication conf)))
 
 (defn service
   [app svc]

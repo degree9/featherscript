@@ -2,14 +2,14 @@
   (:refer-clojure :exclude [rest])
   (:require [goog.object :as obj]
             [feathers.authentication :as auth]
-            [feathers.core :as fs]
+            ["@feathersjs/feathers" :as feathers]
             [feathers.configuration :as config]
             [feathers.rest :as rest]
             [feathers.socketio :as socketio]
             [feathers.express :as exp])
   (:require-macros feathers.app))
 
-(defn feathers [] (fs/feathers))
+(def feathers feathers)
 
 (def express exp/expressify)
 
@@ -31,13 +31,13 @@
         app (auth/configure app conf)]
     (auth/service app path)))
 
-(def listen fs/listen)
+(def listen feathers/listen)
 
-(def using fs/using)
+(def using feathers/use)
 
 (defn api [app path svc & [opts]]
-  (let [app (fs/using app path svc)
+  (let [app (exp/using app path svc)
         {:keys [before after error]} opts]
-    (doto (fs/service app path)
+    (doto (.service app path)
       (.hooks (clj->js {:before before :after after :error error})))
     app))
