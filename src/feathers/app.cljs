@@ -36,7 +36,7 @@
 (def using feathers/use)
 
 (defn api [app path svc & [opts]]
-  (let [app (exp/using app path svc)
+  (let [app (.use app path svc)
         {:keys [before after error]} opts]
     (doto (.service app path)
       (.hooks (clj->js {:before before :after after :error error})))
