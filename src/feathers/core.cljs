@@ -1,9 +1,8 @@
 (ns feathers.core
-  (:require [cljs.nodejs :as node]))
+  (:require [cljs.nodejs :as node]
+            ["@feathersjs/feathers" :as feathers]))
 
 (enable-console-print!)
-
-(def feathers (node/require "@feathersjs/feathers"))
 
 (defn configure
   [app callback]
@@ -17,18 +16,11 @@
   [app server]
   (.setup app server))
 
-;;Note: renamed use -> using - to avoid cljs macro conflict
-(defn using
-  ([app service]
-   (.use app service))
-  ([app path service]
-   (.use app path service)))
-
 (defn service
   ([app path]
-   (.service app path))
+   (feathers/service app path))
   ([app path service]
-   (.service app path service)))
+   (feathers/service app path service)))
 
 (defn hooks
  ([app hook]
