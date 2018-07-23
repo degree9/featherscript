@@ -1,6 +1,5 @@
 (ns feathers.core
-  (:require [cljs.nodejs :as node]
-            ["@feathersjs/feathers" :as feathers]))
+  (:require [cljs.nodejs :as node]))
 
 (enable-console-print!)
 
@@ -18,9 +17,9 @@
 
 (defn service
   ([app path]
-   (feathers/service app path))
+   (.service app path))
   ([app path service]
-   (feathers/service app path service)))
+   (.service app path service)))
 
 (defn hooks
  ([app hook]
