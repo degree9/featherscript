@@ -9,7 +9,7 @@
             [feathers.express :as exp])
   (:require-macros feathers.app))
 
-(def feathers feathers)
+(def app feathers)
 
 (def express exp/expressify)
 
