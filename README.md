@@ -1,7 +1,7 @@
 # FeatherScript
 
 [![Clojars Project](https://img.shields.io/clojars/v/degree9/featherscript.svg)](https://clojars.org/degree9/featherscript)
-[![Dependencies Status](https://versions.deps.co/degree9/featherscript/status.svg)](https://versions.deps.co/degree9/featherscript)
+<!-- [![Dependencies Status](https://versions.deps.co/degree9/featherscript/status.svg)](https://versions.deps.co/degree9/featherscript) -->
 [![Downloads](https://versions.deps.co/degree9/featherscript/downloads.svg)](https://versions.deps.co/degree9/featherscript)
 <!---
 [![CircleCI](https://circleci.com/gh/degree9/featherscript.svg?style=svg)](https://circleci.com/gh/degree9/featherscript)
