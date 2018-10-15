@@ -25,10 +25,10 @@
 
 (def socketio socketio/configure)
 
-(defn authentication [app]
+(defn authentication [^js app]
   (let [conf (.get app "auth")
         path (obj/get conf "path")
-        app (auth/configure app conf)]
+        app  (auth/configure app conf)]
     (auth/service app path)))
 
 (def listen feathers/listen)

@@ -1,10 +1,10 @@
 (ns feathers.channels)
 
 ;; Feathers Connections ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defn connection [app listener]
+(defn connection [^js app listener]
   (.on app "connection" listener))
 
-(defn login [app listener]
+(defn login [^js app listener]
   (.on app "login" listener))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

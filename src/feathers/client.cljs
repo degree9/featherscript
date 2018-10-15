@@ -1,14 +1,16 @@
 (ns feathers.client
   (:refer-clojure :exclude [rest])
-  (:require ["@feathersjs/client" :as feathers]
-            ["jquery" :as jquery]))
+  (:require ["@feathersjs/client" :as feathers]))
 
 (defn configure
   [app callback]
   (.configure app callback))
 
-(defn rest [app]
-  (configure app (jquery/jquery (feathers/rest))))
+(defn jquery [app uri jquery]
+  (configure app (.jquery (feathers/rest uri) jquery)))
+
+(defn request [app uri request]
+  (configure app (.request (feathers/rest uri) request)))
 
 (defn socketio [app socket]
   (configure app (feathers/socketio socket)))
