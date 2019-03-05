@@ -1,15 +1,10 @@
-(defn read-file   [file] (read-string (slurp file)))
-(defn get-deps    []     (read-file "./dependencies.edn"))
-;(defn get-devdeps []     (read-file "./dev_dependencies.edn"))
-
 (set-env!
- :dependencies   (get-deps)
- :resource-paths #{"src"})
+  :resource-paths #{"src"}
+  :dependencies   '[[org.clojure/clojure       "1.10.0"]
+                    [org.clojure/clojurescript "1.10.520"]
+                    [degree9/boot-semver       "1.8.0" :scope "test"]])
 
-(require
- '[degree9.boot-semver :refer :all]
- '[degree9.boot-semgit :refer :all]
- '[degree9.boot-semgit.workflow :refer :all])
+(require '[degree9.boot-semver :refer :all])
 
 (task-options!
  pom    {:project 'degree9/featherscript
