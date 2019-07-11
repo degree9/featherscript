@@ -19,18 +19,26 @@
 
 (def static exp/static)
 
+(defn session [app]
+  (let [conf (.get app "auth")
+        secret (obj/get conf "secret")]
+    (exp/session app #js{:secret secret})))
+
 (def configuration config/configure)
 
 (def rest rest/configure)
 
 (def socketio socketio/configure)
 
-(defn authentication
-  ([^js app] (authentication app "/authentication"))
-  ([^js app path]
-   (let [conf (.get app "auth")
-         app  (auth/configure app conf)]
-      (auth/service app path))))
+(defn authentication [^js app]
+  (let [conf (.get app "auth")]
+    (-> app
+      (auth/configure conf)
+      (auth/configure-service conf))))
+
+(def authentication-local auth/configure-local)
+
+(def authentication-oauth2 auth/configure-oauth2)
 
 (def listen feathers/listen)
 

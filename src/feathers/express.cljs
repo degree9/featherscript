@@ -1,8 +1,9 @@
 (ns feathers.express
-  (:require ["@feathersjs/express" :as express]))
+  (:require ["@feathersjs/express" :as exp]
+            ["express-session" :as exps]))
 
 (defn expressify [feathers]
-  (express feathers))
+  (exp feathers))
 
 ;;Note: renamed use -> using - to avoid cljs macro conflict
 (defn using
@@ -12,10 +13,13 @@
    (.use app path service)))
 
 (defn static [app]
-  (using app (express/static (.cwd js/process))))
+  (using app (exp/static (.cwd js/process))))
+
+(defn session [app config]
+  (using app (exps config)))
 
 (defn json [app]
-  (using app (express/json)))
+  (using app (exp/json)))
 
 (defn urlencoded [app]
-  (using app (express/urlencoded #js{:extended true})))
+  (using app (exp/urlencoded #js{:extended true})))

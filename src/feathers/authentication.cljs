@@ -5,7 +5,8 @@
             [feathers.core :as fs]
             ["@feathersjs/authentication" :as auth]
             ["@feathersjs/authentication-jwt" :as jwt]
-            ["@feathersjs/authentication-local" :as local]))
+            ["@feathersjs/authentication-local" :as local]
+            ["@feathersjs/authentication-oauth2" :as oauth2]))
 
 ;; Authentication Hooks ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (def hooks
@@ -34,12 +35,18 @@
 (defn configure [app conf]
   (-> app
     (fs/configure (auth conf))
-    (fs/configure (jwt))
-    (fs/configure (local))))
+    (fs/configure (jwt))))
 
-(defn service [app path]
-  (let [svc   (fs/service app path)
-        hooks (clj->js {:before {:create [(authenticate #js["jwt" "local"])]}})]
+(defn configure-local [app]
+  (fs/configure app (local)))
+
+(defn configure-oauth2 [app conf]
+  (fs/configure app (oauth2 conf)))
+
+(defn configure-service [app conf]
+  (let [svc   (fs/service app (obj/get conf "path"))
+        hooks (clj->js {:before {:create [(authenticate (obj/get conf "strategies"))]}})]
+    (prn (obj/get conf "strategies"))
     (.hooks svc hooks)
     app))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
