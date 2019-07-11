@@ -15,8 +15,9 @@
   [app server]
   (.setup app server))
 
-(defn service [app path service]
-  (.service app path service))
+(defn service
+  ([app path] (.service app path))
+  ([app path service] (.service app path service)))
 
 (defn hooks
  ([app hook]
