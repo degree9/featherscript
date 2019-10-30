@@ -4,9 +4,8 @@
             [cljs.nodejs :as node]
             [feathers.core :as fs]
             ["@feathersjs/authentication" :as auth]
-            ["@feathersjs/authentication-jwt" :as jwt]
             ["@feathersjs/authentication-local" :as local]
-            ["@feathersjs/authentication-oauth2" :as oauth2]))
+            ["@feathersjs/authentication-oauth" :as oauth]))
 
 ;; Authentication Hooks ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (def hooks
@@ -24,7 +23,7 @@
 
 (defn hash-password []
   (let [hash (:hashPassword hooks)]
-    (hash.)))
+    (hash. "password")))
 
 (defn protect-password []
   (let [protect (:protect hooks)]
@@ -32,21 +31,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Authentication Services ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defn configure [app conf]
-  (-> app
-    (fs/configure (auth conf))
-    (fs/configure (jwt))))
+(defn authentication [app]
+  (let [svc   (obj/get auth "AuthenticationService")
+        jwt   (obj/get auth "JWTStrategy")
+        local (obj/get local "LocalStrategy")]
+    (doto (svc. app)
+      (.register "jwt" (jwt.))
+      (.register "local" (local.)))))
 
-(defn configure-local [app]
-  (fs/configure app (local)))
-
-(defn configure-oauth2 [app conf]
-  (fs/configure app (oauth2 conf)))
-
-(defn configure-service [app conf]
-  (let [svc   (fs/service app (obj/get conf "path"))
-        hooks (clj->js {:before {:create [(authenticate (obj/get conf "strategies"))]}})]
-    (prn (obj/get conf "strategies"))
-    (.hooks svc hooks)
-    app))
+(defn configure [app]
+  (let [auth (authentication app)
+        oauth (obj/get oauth "expressOauth")]
+    (-> app
+      (.use "/authentication" auth)
+      (fs/configure (oauth #js{:authService "authentication"})))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,6 +1,6 @@
 (ns feathers.express
-  (:require ["@feathersjs/express" :as exp]
-            ["express-session" :as exps]))
+  (:require ["@feathersjs/express" :as exp]))
+            ;["express-session" :as exps]))
 
 (defn expressify [feathers]
   (exp feathers))
@@ -15,8 +15,8 @@
 (defn static [app]
   (using app (exp/static (.cwd js/process))))
 
-(defn session [app config]
-  (using app (exps config)))
+;(defn session [app config]
+;  (using app (exps config)))
 
 (defn json [app]
   (using app (exp/json)))
