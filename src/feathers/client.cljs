@@ -2,6 +2,8 @@
   (:refer-clojure :exclude [rest])
   (:require ["@feathersjs/client" :as feathers]))
 
+(def client feathers)
+
 (defn configure
   [app callback]
   (.configure app callback))
@@ -13,10 +15,12 @@
   (configure app (.request (feathers/rest uri) request)))
 
 (defn socketio [app socket]
-  (configure app (feathers/socketio socket)))
+  (doto app
+    (configure (feathers/socketio socket))))
 
 (defn authentication [app conf]
-  (configure app (feathers/authentication conf)))
+  (doto app
+    (configure (feathers/authentication conf))))
 
 (defn service
   [app svc]
@@ -25,6 +29,9 @@
 (defn authenticate
   ([app] (.authenticate app))
   ([app conf] (.authenticate app (clj->js conf))))
+
+(defn reauthenticate [app]
+  (.reAuthenticate app))
 
 (defn logout
   [app]
