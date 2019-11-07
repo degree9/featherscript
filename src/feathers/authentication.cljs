@@ -18,8 +18,8 @@
       (js->clj :keywordize-keys true))))
 
 (defn authenticate [strategies]
-  (let [auth  (:authenticate hooks)]
-    (auth. strategies)))
+  (let [auth  (obj/get auth "authenticate")]
+    (auth (clj->js {:service "/authentication" :strategies strategies}))))
 
 (defn hash-password []
   (let [hash (:hashPassword hooks)]
