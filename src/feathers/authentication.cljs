@@ -1,8 +1,5 @@
 (ns feathers.authentication
-  (:refer-clojure :exclude [rest])
   (:require [goog.object :as obj]
-            [cljs.nodejs :as node]
-            [feathers.core :as fs]
             ["@feathersjs/authentication" :as auth]
             ["@feathersjs/authentication-local" :as local]
             ["@feathersjs/authentication-oauth" :as oauth]))
@@ -31,7 +28,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Authentication Services ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defn authentication [app]
+(defn register-strategies [app]
   (let [svc   (obj/get auth "AuthenticationService")
         jwt   (obj/get auth "JWTStrategy")
         local (obj/get local "LocalStrategy")]
@@ -39,10 +36,10 @@
       (.register "jwt" (jwt.))
       (.register "local" (local.)))))
 
-(defn configure [app]
-  (let [auth (authentication app)
+(defn authentication [app]
+  (let [auth (register-strategies app)
         oauth (obj/get oauth "expressOauth")]
     (-> app
       (.use "/authentication" auth)
-      (fs/configure (oauth #js{:authService "authentication"})))))
+      (.configure (oauth #js{:authService "authentication"})))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

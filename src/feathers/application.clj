@@ -1,4 +1,4 @@
-(ns feathers.app)
+(ns feathers.application)
 
 (defmacro with-hook
   "Create a hook which must return a hook object or promise."
