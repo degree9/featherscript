@@ -1,5 +1,5 @@
 (ns feathers.socketio
-  (:require ["@feathersjs/socketio" :as socketio]))
+  (:require ["@feathersjs/socketio" :as sio]))
 
 (defn socketio [app & [callback]]
-  (.configure app (socketio callback)))
+  (.configure app (sio callback)))

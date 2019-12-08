@@ -1,7 +1,7 @@
 (ns feathers.express
   (:refer-clojure :exclude [rest])
   (:require ["@feathersjs/express" :as exp]
-            ["@feathersjs/express/rest" :as rest]))
+            ["@feathersjs/express/rest" :as expr]))
 
 (defn express [app]
   (exp app))
@@ -22,4 +22,4 @@
   (.use app (exp/errorHandler opts)))
 
 (defn rest [app & [opts]]
-  (.configure app (rest opts)))
+  (.configure app (expr opts)))
