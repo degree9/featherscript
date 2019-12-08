@@ -28,7 +28,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Authentication Services ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defn authentication [app]
+(defn register-strategies [app]
   (let [svc   (obj/get auth "AuthenticationService")
         jwt   (obj/get auth "JWTStrategy")
         local (obj/get local "LocalStrategy")]
@@ -36,8 +36,8 @@
       (.register "jwt" (jwt.))
       (.register "local" (local.)))))
 
-(defn configure [app]
-  (let [auth (authentication app)
+(defn authentication [app]
+  (let [auth (register-strategies app)
         oauth (obj/get oauth "expressOauth")]
     (-> app
       (.use "/authentication" auth)

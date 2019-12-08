@@ -1,4 +1,5 @@
 (ns feathers.application
+  (:refer-clojure :exclude [get set])
   (:require [goog.object :as obj]
             ["@feathersjs/feathers" :as feathers])
   (:require-macros feathers.application))
