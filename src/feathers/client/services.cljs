@@ -1,48 +1,35 @@
 (ns feathers.client.services
-  (:refer-clojure :exclude [find get update remove])
-  (:require [feathers.client :as feathers]))
+  (:refer-clojure :exclude [find get update remove]))
 
-(def service feathers/service) ;; this seems to fix some load order issue
+(defn find [service & [params]]
+   (.find service params))
 
-(defn on [app event callback]
-  (let []
-    (.on app event callback)))
+(defn get [service id & [params]]
+   (.get service id params))
 
-(defn created [app callback]
-  (.on app "created" callback))
+(defn create [service data & [params]]
+   (.create service data params))
 
-(defn updated [app callback]
-  (.on app "updated" callback))
+(defn update [service id data & [params]]
+  (.update service id data params))
 
-(defn patched [app callback]
-  (.on app "patched" callback))
+(defn patch [service id data & [params]]
+  (.patch service id data params))
 
-(defn removed [app callback]
-  (.on app "removed" callback))
+(defn remove [service id & [params]]
+  (.remove service id params))
 
-(defn find
-  ([app]
-   (.find app))
-  ([app & [params]]
-   (.find app (clj->js params))))
+(defn on [service event callback]
+  (.on service event callback))
 
-(defn get
-  ([app id]
-   (.get app id))
-  ([app id & [params callback]]
-   (.get app id params callback)))
+(defn created [service callback]
+  (.on service "created" callback))
 
-(defn create
-  ([app data]
-   (.create app (clj->js data)))
-  ([app data params]
-   (.create app (clj->js data) (clj->js data))))
+(defn updated [service callback]
+  (.on service "updated" callback))
 
-(defn update [app id data & [params callback]]
-  (.update app id data params callback))
+(defn patched [service callback]
+  (.on service "patched" callback))
 
-(defn patch [app id data & [params callback]]
-  (.patch app id data params callback))
-
-(defn remove [app id & [params callback]]
-  (.remove app id params callback))
+(defn removed [service callback]
+  (.on service "removed" callback))

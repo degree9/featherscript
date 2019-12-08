@@ -1,5 +1,4 @@
 (ns feathers.client
-  (:refer-clojure :exclude [rest])
   (:require ["@feathersjs/client" :as feathers]))
 
 (def client feathers)
@@ -28,7 +27,7 @@
 
 (defn authenticate
   ([app] (.authenticate app))
-  ([app conf] (.authenticate app (clj->js conf))))
+  ([app conf] (.authenticate app conf)))
 
 (defn reauthenticate [app]
   (.reAuthenticate app))

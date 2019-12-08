@@ -1,7 +1,5 @@
 (ns feathers.socketio
-  (:require [cljs.nodejs :as node]
-            [feathers.core :as fs]
-            ["@feathersjs/socketio" :as socketio]))
+  (:require ["@feathersjs/socketio" :as socketio]))
 
 (defn configure [app & [callback]]
-  (fs/configure app (socketio callback)))
+  (.configure app (socketio callback)))

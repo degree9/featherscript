@@ -1,8 +1,5 @@
 (ns feathers.authentication
-  (:refer-clojure :exclude [rest])
   (:require [goog.object :as obj]
-            [cljs.nodejs :as node]
-            [feathers.core :as fs]
             ["@feathersjs/authentication" :as auth]
             ["@feathersjs/authentication-local" :as local]
             ["@feathersjs/authentication-oauth" :as oauth]))
@@ -44,5 +41,5 @@
         oauth (obj/get oauth "expressOauth")]
     (-> app
       (.use "/authentication" auth)
-      (fs/configure (oauth #js{:authService "authentication"})))))
+      (.configure (oauth #js{:authService "authentication"})))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
