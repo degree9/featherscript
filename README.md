@@ -14,7 +14,7 @@ ClojureScript layer around Feathers.js.
     <img width="135" src="/.github/logo.png">
   </a>
   <br>
-  <b>D9 Enterprise is developed and maintained by Degree9</b>
+  <b>D9 Featherscript is developed and maintained by Degree9</b>
 </p>
 
 ---
