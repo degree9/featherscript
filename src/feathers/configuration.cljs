@@ -1,5 +1,5 @@
 (ns feathers.configuration
   (:require ["@feathersjs/configuration" :as config]))
 
-(defn configure [app & [opts]]
+(defn configuration [app & [opts]]
   (.configure app (config opts)))
