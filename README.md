@@ -1,4 +1,4 @@
-<p align="center"><img src="/.github/D9 Featherscript.png" alt="d9featherscript" width="445px"></p>
+<p align="center"><img src="/.github/D9 Featherscript.png" alt="d9featherscript" width="550px"></p>
 
 [![Clojars Project](https://img.shields.io/clojars/v/degree9/featherscript.svg)](https://clojars.org/degree9/featherscript)<!-- [![Dependencies Status](https://versions.deps.co/degree9/featherscript/status.svg)](https://versions.deps.co/degree9/featherscript) --> [![Downloads](https://versions.deps.co/degree9/featherscript/downloads.svg)](https://versions.deps.co/degree9/featherscript)
 <!---
