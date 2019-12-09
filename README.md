@@ -19,6 +19,43 @@ ClojureScript layer around Feathers.js.
 
 ---
 
+## Feathers Application
+
+The `feathers.application` namespace is the starting point for all feathers apps. 
+
+```
+(ns app.server
+  (:require [feathers.application :as feathers]))
+
+(def app (feathers/app))
+```
+
+Additionally all of the methods of the feathers app object can be called from the `feathers.application` namespace.
+See the [API Docs](https://docs.feathersjs.com/api/application.html) for a full list of methods.
+
+## Feathers Services
+
+Services provide the main application logic for feathers apps, they are JS objects that implement request methods.
+Service methods are CRUD methods that can optionally be implemented by a service.
+
+```
+(ns app.services)
+
+(defn my-service []
+  (reify
+    Object
+    (find   [this params] ...)
+    (get    [this id params] ...)
+    (create [this data params] ...)
+    (update [this id data params] ...)
+    (patch  [this id data params] ...)
+    (remove [this id params] ...)))
+```
+
+## Feathers Hooks
+
+
+
 ---
 
 <p align="center">
