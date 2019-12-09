@@ -55,6 +55,7 @@ Service methods are CRUD methods that can optionally be implemented by a service
 ## Feathers Hooks
 
 
+## Feathers Events
 
 ---
 
