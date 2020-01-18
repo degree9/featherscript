@@ -12,8 +12,8 @@
 (defn json [app]
   (.use app (exp/json)))
 
-(defn urlencoded [app]
-  (.use app (exp/urlencoded #js{:extended true})))
+(defn urlencoded [app & [opts]]
+  (.use app (exp/urlencoded opts)))
 
 (defn not-found [app & [opts]]
   (.use app (exp/notFound opts)))
@@ -21,5 +21,8 @@
 (defn error-handler [app & [opts]]
   (.use app (exp/errorHandler opts)))
 
-(defn rest [app & [opts]]
-  (.configure app (expr opts)))
+(defn rest
+  ([app]
+   (.configure app (expr)))
+  ([app formatter]
+   (.configure app (expr formatter))))
