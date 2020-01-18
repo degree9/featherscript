@@ -21,5 +21,5 @@
 (defn error-handler [app & [opts]]
   (.use app (exp/errorHandler opts)))
 
-(defn rest [app & [opts]]
-  (.configure app (expr opts)))
+(defn express-rest [app & opts]
+  (.configure app (apply expr opts)))
